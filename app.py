@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return "Dummy2 Test in DevOps"
+    return "Dummy Test in DevOps"
 
 # La siguiente línea comprueba si el archivo app.py está siendo ejecutado directamente
 # (es decir, no está siendo importado como un módulo en otro script).
