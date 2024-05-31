@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: "${env.GIT_BRANCH}", url: 'https://github.com/yourusername/your-repo.git'
+                git branch: "${env.GIT_BRANCH}", url: 'https://github.com/haciendodevops/02-JenkinsPipeline.git'
             }
         }
 
