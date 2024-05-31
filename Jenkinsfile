@@ -9,6 +9,15 @@ pipeline {
     }
 
     stages {
+        sstage('Initialize') {
+12             steps {
+13                 script {
+14                     def dockerHome = tool 'mydocker'
+15                     env.PATH = "${dockerHome}/bin:${env.PATH}"
+16                 }
+17             }
+18         }
+
         stage('Clone Repository') {
             steps {
                 git branch: "${env.GIT_BRANCH}", url: 'https://github.com/haciendodevops/02-JenkinsPipeline.git'
