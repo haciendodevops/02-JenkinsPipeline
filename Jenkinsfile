@@ -10,7 +10,7 @@ pipeline {
         DOCKER_IMAGE = "${env.DOCKER_IMAGE}"
         DOCKER_REGISTRY_CREDENTIALS_ID = "${env.DOCKER_REGISTRY_CREDENTIALS_ID}"
         DOCKER_HUB_REPO = "${env.DOCKER_HUB_REPO}"
-    }
+    }   
 
 
     stages {
@@ -19,7 +19,10 @@ pipeline {
                 git branch: "${env.GIT_BRANCH}", url: 'https://github.com/haciendodevops/02-JenkinsPipeline.git'
             }
         }
-
+        stage('Initialize'){
+        def dockerHome = tool 'mydocker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
+         }
         stage('Build Docker Image') {
             steps {
                 script {
