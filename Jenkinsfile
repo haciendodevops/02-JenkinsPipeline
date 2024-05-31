@@ -3,10 +3,11 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE = 'dummy-devops-app'
-        DOCKER_REGISTRY_CREDENTIALS_ID = 'your-dockerhub-credentials-id'
-        DOCKER_HUB_REPO = 'your-dockerhub-username/dummy-devops-app'
+        DOCKER_IMAGE = "${env.DOCKER_IMAGE}"
+        DOCKER_REGISTRY_CREDENTIALS_ID = "${env.DOCKER_REGISTRY_CREDENTIALS_ID}"
+        DOCKER_HUB_REPO = "${env.DOCKER_HUB_REPO}"
     }
+
 
     stages {
         stage('Clone Repository') {
