@@ -4,14 +4,14 @@ pipeline {
     
     environment {
         DOCKER_IMAGE = 'dummy-devops-app'
-        DOCKER_REGISTRY_CREDENTIALS_ID = 'your-dockerhub-credentials-id'
-        DOCKER_HUB_REPO = 'your-dockerhub-username/dummy-devops-app'
+        DOCKER_REGISTRY_CREDENTIALS_ID = 'GITHUB_CREDENTIALS'
+        DOCKER_HUB_REPO = 'briandf25/dummy-devops-app'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: "${env.GIT_BRANCH}", url: 'https://github.com/yourusername/your-repo.git'
+                git branch: "${env.GIT_BRANCH}", url: 'https://github.com/haciendodevops/02-JenkinsPipeline.git'
             }
         }
 
