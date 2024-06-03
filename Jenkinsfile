@@ -19,10 +19,15 @@ pipeline {
                 git branch: "${env.GIT_BRANCH}", url: 'https://github.com/haciendodevops/02-JenkinsPipeline.git'
             }
         }
-        stage('Initialize'){
-                def dockerHome = tool 'mydocker'
-                env.PATH = "${dockerHome}/bin:${env.PATH}"
-            }
+        stage('Initialize') {
+                    steps {
+                        script {
+                            def dockerHome = tool 'mydocker'
+                            env.PATH = "${dockerHome}/bin:${env.PATH}"
+                        }
+                    }
+                }
+
         stage('Build Docker Image') {
             steps {
                 script {
