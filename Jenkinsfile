@@ -2,14 +2,14 @@
 pipeline {
     agent {
         docker {
-            image 'jenkins-docker:latest'
+            image 'haciendodevops/dummy-app'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
+        }   
     }
     environment {
         DOCKER_IMAGE = "${env.DOCKER_IMAGE}"
         DOCKER_REGISTRY_CREDENTIALS_ID = "${env.DOCKER_REGISTRY_CREDENTIALS_ID}"
-        DOCKER_HUB_REPO = "${env.DOCKER_HUB_REPO}"
+        DOCKER_HUB_REPO = "haciendodevops/dummy-app"
     }   
 
 
