@@ -1,29 +1,29 @@
-// Jenkinsfile
 pipeline {
     agent {
         docker {
-            image 'haciendodevops/dummy-app'
+            image 'jenkins/jenkins:lts'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }   
+        }
     }
     environment {
-        DOCKER_IMAGE = "dummy-devops-app"
-        DOCKER_REGISTRY_CREDENTIALS_ID = "${env.DOCKER_REGISTRY_CREDENTIALS_ID}"
+        DOCKER_IMAGE = "haciendodevops/dummy-app"
+        DOCKER_REGISTRY_CREDENTIALS_ID = "docker-hub-token"  // ID del token configurado en Jenkins
         DOCKER_HUB_REPO = "haciendodevops/dummy-app"
-    }   
-
+        GIT_CREDENTIALS_ID = "github-credentials"
+        GIT_BRANCH = "features/haciendodevops"
+    }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: "${env.GIT_BRANCH}", url: 'https://github.com/haciendodevops/02-JenkinsPipeline.git'
+                git branch: "${env.GIT_BRANCH}", url: 'https://github.com/haciendodevops/02-JenkinsPipeline.git', credentialsId: "${GIT_CREDENTIALS_ID}"
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${DOCKER_IMAGE}:${env.BRANCH_NAME}", ".")
+                    dockerImage = docker.build("${DOCKER_IMAGE}:${env.GIT_BRANCH}")
                 }
             }
         }
@@ -31,8 +31,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_REGISTRY_CREDENTIALS_ID) {
-                        dockerImage.push("${env.BRANCH_NAME}")
+                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_REGISTRY_CREDENTIALS_ID}") {
+                        dockerImage.push("${env.GIT_BRANCH}")
                     }
                 }
             }
@@ -41,7 +41,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    sh "docker run -d -p 5000:5000 ${DOCKER_HUB_REPO}:${env.BRANCH_NAME}"
+                    sh "docker run -d -p 5000:5000 ${DOCKER_IMAGE}:${env.GIT_BRANCH}"
                 }
             }
         }
