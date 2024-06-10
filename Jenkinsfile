@@ -19,6 +19,13 @@ pipeline {
                 git branch: "${env.GIT_BRANCH}", url: 'https://github.com/haciendodevops/02-JenkinsPipeline.git', credentialsId: "${GIT_CREDENTIALS_ID}"
             }
         }
+        stage('Print User') {
+            steps {
+                script {
+                    sh 'whoami'
+                }
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
