@@ -6,7 +6,7 @@ pipeline {
         }
     }
     environment {
-        DOCKER_IMAGE = "haciendodevops/dummy-app"
+        DOCKER_IMAGE = "dummy-app"
         DOCKER_REGISTRY_CREDENTIALS_ID = "docker-hub-token"  // ID del token configurado en Jenkins
         DOCKER_HUB_REPO = "haciendodevops/dummy-app"
         GIT_CREDENTIALS_ID = "github-credentials"
@@ -23,7 +23,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${DOCKER_IMAGE}:${env.GIT_BRANCH}")
+                    dockerImage = docker.build("${DOCKER_IMAGE}:latest")
                 }
             }
         }
@@ -41,7 +41,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    sh "docker run -d -p 5000:5000 ${DOCKER_IMAGE}:${env.GIT_BRANCH}"
+                    sh "docker run -d -p 5000:5000 ${DOCKER_IMAGE}:latest"
                 }
             }
         }
