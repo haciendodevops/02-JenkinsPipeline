@@ -7,10 +7,12 @@ pipeline {
         }   
     }
     environment {
-        DOCKER_IMAGE = "${env.DOCKER_IMAGE}"
-        DOCKER_REGISTRY_CREDENTIALS_ID = "${env.DOCKER_REGISTRY_CREDENTIALS_ID}"
-        DOCKER_HUB_REPO = "haciendodevops/dummy-app"
-    }   
+        DOCKER_IMAGE = "dummy-devops-app"
+        DOCKER_REGISTRY_CREDENTIALS_ID = "docker-hub-token"  // ID del token configurado en Jenkins
+        DOCKER_HUB_REPO = "haciendodevops/dummy-devops-app"  // Asegúrate de que este sea el nombre correcto del repositorio en Docker Hub
+        GIT_CREDENTIALS_ID = "github-credentials"
+        GIT_BRANCH = "features/haciendodevops"
+    }
 
 
     stages {
