@@ -6,7 +6,7 @@ pipeline {
         }
     }
     environment {
-        DOCKER_IMAGE = "dummy-app"
+        DOCKER_IMAGE = "dummy-app_features_haciendodevops"
         DOCKER_REGISTRY_CREDENTIALS_ID = "docker-hub-token"  // ID del token configurado en Jenkins
         DOCKER_HUB_REPO = "haciendodevops/dummy-app"
         GIT_CREDENTIALS_ID = "github-credentials"
