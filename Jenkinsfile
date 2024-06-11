@@ -30,7 +30,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def dockerTag = "${DOCKER_IMAGE}:${env.GIT_BRANCH}".replaceAll('[^a-zA-Z0-9_.-]', '_')
+                    def dockerTag = "dummy-app_features_haciendodevops:features_haciendodevops"
                     dockerImage = docker.build(dockerTag)
                 }
             }
@@ -39,7 +39,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    def dockerTag = "${DOCKER_IMAGE}:${env.GIT_BRANCH}"
+                    def dockerTag = "dummy-app_features_haciendodevops:features_haciendodevops"
                     def registryTag = "index.docker.io/${DOCKER_HUB_REPO}:${env.GIT_BRANCH}"
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_REGISTRY_CREDENTIALS_ID}") {
                         dockerImage.push(registryTag)
