@@ -52,8 +52,8 @@ pipeline {
                 script {
                     def dockerTag = "haciendodevops/helloworld55:latest"
                     sh "docker run -d -p 5000:5000 ${dockerTag}"
-                    docker ps -a
-                    
+                    sh "docker ps -a"
+
                 }
             }
         }
