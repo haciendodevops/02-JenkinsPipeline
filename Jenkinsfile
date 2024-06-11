@@ -39,8 +39,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    def dockerTag = "${DOCKER_IMAGE}:${env.GIT_BRANCH}".replaceAll('[^a-zA-Z0-9_.-]', '_')
-                    def registryTag = "index.docker.io/${DOCKER_HUB_REPO}:${env.GIT_BRANCH}".replaceAll('[^a-zA-Z0-9_.-]', '_')
+                    def dockerTag = "${DOCKER_IMAGE}:${env.GIT_BRANCH}"
+                    def registryTag = "index.docker.io/${DOCKER_HUB_REPO}:${env.GIT_BRANCH}"
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_REGISTRY_CREDENTIALS_ID}") {
                         dockerImage.push(registryTag)
                     }
@@ -51,7 +51,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    def registryTag = "index.docker.io/${DOCKER_HUB_REPO}:${env.GIT_BRANCH}".replaceAll('[^a-zA-Z0-9_.-]', '_')
+                    def registryTag = "index.docker.io/${DOCKER_HUB_REPO}:${env.GIT_BRANCH}"
                     sh "docker run -d -p 5000:5000 ${registryTag}"
                 }
             }
