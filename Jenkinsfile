@@ -30,7 +30,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def dockerTag = "helloworld55"
+                    def dockerTag = "haciendodevops/helloworld55"
                     dockerImage = docker.build(dockerTag)
                 }
             }
