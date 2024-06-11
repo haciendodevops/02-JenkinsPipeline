@@ -30,7 +30,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def dockerTag = "dummy-app_features_haciendodevops:features_haciendodevops"
+                    def dockerTag = "dummy-app_features_haciendodevops"
                     dockerImage = docker.build(dockerTag)
                 }
             }
@@ -39,7 +39,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    def dockerTag = "dummy-app_features_haciendodevops:features_haciendodevops"
+                    def dockerTag = "haciendodevops/dummy-app_features_haciendodevops"
                     def registryTag = "index.docker.io/${DOCKER_HUB_REPO}:${env.GIT_BRANCH}"
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_REGISTRY_CREDENTIALS_ID}") {
                         dockerImage.push(registryTag)
@@ -51,7 +51,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    def registryTag = "index.docker.io/${DOCKER_HUB_REPO}:${env.GIT_BRANCH}"
+                    def registryTag = "index.docker.io/haciendodevops/dummy-app_features_haciendodevops"
                     sh "docker run -d -p 5000:5000 ${registryTag}"
                 }
             }
