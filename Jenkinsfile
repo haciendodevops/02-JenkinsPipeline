@@ -30,7 +30,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def dockerTag = "haciendodevops/dummy-app_features_haciendodevops:features_haciendodevops"
+                    def dockerTag = "helloworld55"
                     dockerImage = docker.build(dockerTag)
                 }
             }
@@ -39,7 +39,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    def dockerTag = "haciendodevops/dummy-app_features_haciendodevops:features_haciendodevops"
+                    def dockerTag = "helloworld55"
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_REGISTRY_CREDENTIALS_ID}") {
                         dockerImage.push(dockerTag)
                     }
