@@ -50,7 +50,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    def dockerTag = "haciendodevops/dummy-app_features_haciendodevops:features_haciendodevops"
+                    def dockerTag = "haciendodevops/helloworld55:features_haciendodevops"
                     sh "docker run -d -p 5000:5000 ${dockerTag}"
                 }
             }
